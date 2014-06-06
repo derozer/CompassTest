@@ -20,12 +20,14 @@
     function onDeviceReady() {
         startWatch();
         document.getElementById('heading').innerHTML = "ready";
+        console.log("ready");
     }
 
     // Start watching the compass
     //
     function startWatch() {
         document.getElementById('heading').innerHTML = "startwatch";
+        console.log("start");
         // Update compass every 3 seconds
         var options = { frequency: 3000 };
 
@@ -36,6 +38,7 @@
     //
     function stopWatch() {
       document.getElementById('heading').innerHTML = "stopwatch";
+      console.log("stop");
         if (watchID) {
             navigator.compass.clearWatch(watchID);
             watchID = null;
@@ -45,6 +48,7 @@
     // onSuccess: Get the current heading
     //
     function onSuccess(heading) {
+      console.log("success");
       document.getElementById('heading').innerHTML = "success";
         var element = document.getElementById('heading');
         element.innerHTML = 'Heading: ' + heading;
@@ -53,6 +57,7 @@
     // onError: Failed to get the heading
     //
     function onError() {
+      console.log("error");
       document.getElementById('heading').innerHTML = "error";
         alert('onError!');
     }
