@@ -13,19 +13,20 @@
     // device APIs are available
     //
     function onDeviceReady() {
+	document.getElementById("compazz").value = "ready";
         navigator.compass.getCurrentHeading(onSuccess, onError);
     }
 
     // onSuccess: Get the current heading
     //
     function onSuccess(heading) {
-        alert('Heading: ' + heading.magneticHeading);
+       document.getElementById("compazz").value = heading.magneticHeading;
     }
 
     // onError: Failed to get the heading
     //
     function onError(compassError) {
-        alert('Compass Error: ' + compassError.code);
+        document.getElementById("compazz").value ='Compass Error: ' + compassError.code;
     }
 
     </script>
@@ -33,5 +34,6 @@
   <body>
     <h1>Example</h1>
     <p>getCurrentHeading</p>
+	<input type="text" id="compazz" />
   </body>
 </html>
