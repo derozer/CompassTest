@@ -3,37 +3,59 @@
   <head>
     <title>Compass Example</title>
 
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    // Wait for device API libraries to load
+    // The watch id references the current `watchHeading`
+    var watchID = null;
+
+    // Wait for PhoneGap to load
     //
     document.addEventListener("deviceready", onDeviceReady, false);
 
-    // device APIs are available
+    // PhoneGap is ready
     //
     function onDeviceReady() {
-	document.getElementById("compazz").value = "ready";
-        navigator.compass.getCurrentHeading(onSuccess, onError);
+        startWatch();
+    }
+
+    // Start watching the compass
+    //
+    function startWatch() {
+
+        // Update compass every 3 seconds
+        var options = { frequency: 3000 };
+
+        watchID = navigator.compass.watchHeading(onSuccess, onError, options);
+    }
+
+    // Stop watching the compass
+    //
+    function stopWatch() {
+        if (watchID) {
+            navigator.compass.clearWatch(watchID);
+            watchID = null;
+        }
     }
 
     // onSuccess: Get the current heading
     //
     function onSuccess(heading) {
-       document.getElementById("compazz").value = heading.magneticHeading;
+        var element = document.getElementById('heading');
+        element.innerHTML = 'Heading: ' + heading;
     }
 
     // onError: Failed to get the heading
     //
-    function onError(compassError) {
-        document.getElementById("compazz").value ='Compass Error: ' + compassError.code;
+    function onError() {
+        alert('onError!');
     }
 
     </script>
   </head>
   <body>
-    <h1>Example</h1>
-    <p>getCurrentHeading</p>
-	<input type="text" id="compazz" />
+    <div id="heading">Waiting for heading...</div>
+    <button onclick="startWatch();">Start Watching</button>
+    <button onclick="stopWatch();">Stop Watching</button>
   </body>
 </html>
