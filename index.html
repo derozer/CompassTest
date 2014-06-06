@@ -5,6 +5,7 @@
 
     <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8" src="compass.js"></script>
     <script type="text/javascript" charset="utf-8">
 
     // The watch id references the current `watchHeading`
@@ -18,12 +19,13 @@
     //
     function onDeviceReady() {
         startWatch();
+        document.getElementById('heading').innerHTML = "ready";
     }
 
     // Start watching the compass
     //
     function startWatch() {
-
+        document.getElementById('heading').innerHTML = "startwatch";
         // Update compass every 3 seconds
         var options = { frequency: 3000 };
 
@@ -33,6 +35,7 @@
     // Stop watching the compass
     //
     function stopWatch() {
+      document.getElementById('heading').innerHTML = "stopwatch";
         if (watchID) {
             navigator.compass.clearWatch(watchID);
             watchID = null;
@@ -42,6 +45,7 @@
     // onSuccess: Get the current heading
     //
     function onSuccess(heading) {
+      document.getElementById('heading').innerHTML = "success";
         var element = document.getElementById('heading');
         element.innerHTML = 'Heading: ' + heading;
     }
@@ -49,6 +53,7 @@
     // onError: Failed to get the heading
     //
     function onError() {
+      document.getElementById('heading').innerHTML = "error";
         alert('onError!');
     }
 
